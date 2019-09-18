@@ -21,7 +21,7 @@ function steam_auth_load_theme()
 			{
 				if (isset($_GET['steam']))
 				{
-					$openid->identity = 'http://steamcommunity.com/openid/?l=english';    // This is forcing english because it has a weird habit of selecting a random language otherwise
+					$openid->identity = 'https://steamcommunity.com/openid/?l=english';    // This is forcing english because it has a weird habit of selecting a random language otherwise
 					header('Location: ' . $openid->authUrl());
 				}
 				else
@@ -37,7 +37,7 @@ function steam_auth_load_theme()
 				if ($openid->validate())
 				{
 					$id = $openid->identity;
-					$ptn = "/^http:\/\/steamcommunity\.com\/openid\/id\/(7[0-9]{15,25}+)$/";
+					$ptn = "/^https:\/\/steamcommunity\.com\/openid\/id\/(7[0-9]{15,25}+)$/";
 					preg_match($ptn, $id, $matches);
 					$steamid = $matches[1];
 					
@@ -65,7 +65,7 @@ function steam_auth_load_theme()
 					if (empty($user_settings))
 					{
 						require_once($sourcedir . '/Subs-Package.php');
-						$url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=$modSettings[steam_auth_api_key]&steamids=$matches[1]";
+						$url = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=$modSettings[steam_auth_api_key]&steamids=$matches[1]";
 						$json_object= fetch_web_data($url);
 						$json_decoded = json_decode($json_object);
 
